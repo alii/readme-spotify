@@ -4,6 +4,8 @@ import fetch from "node-fetch";
 
 const { LASTFM_API_KEY } = process.env;
 
+console.log(LASTFM_API_KEY);
+
 const generate = async (username: string, darkTheme: boolean = false) => {
   const endpoint = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${LASTFM_API_KEY}&format=json&limit=1`;
   const request = await fetch(endpoint);
