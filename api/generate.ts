@@ -15,7 +15,8 @@ const generate = async (username: string, darkTheme: boolean = false) => {
   const lastTrack = tracks[0];
 
   return tti.generate(
-    `Last listening to ${lastTrack.name} by ${lastTrack.artist["#text"]}`
+    `Last listening to ${lastTrack.name} by ${lastTrack.artist["#text"]}`,
+    { fontFamily: "Arial" }
   );
 };
 
