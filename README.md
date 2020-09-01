@@ -1,21 +1,13 @@
-![React Logo](https://github.com/vercel/vercel/blob/master/packages/frameworks/logos/react.svg)
+# Spotify GitHub Readme
 
-# React Example
-
-This directory is a brief example of a [React](https://reactjs.org/) app with [Serverless Functions](https://vercel.com/docs/v2/serverless-functions/introduction) that can be deployed with Vercel and zero configuration.
+This is a small Vercel function to generate an image for your GitHub profile with your last playing song.
 
 ## Deploy Your Own
 
-Deploy your own React project, along with Serverless Functions, with Vercel.
+Deploy your own version
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/create-react-app-functions)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/webmail/readme-spotify)
 
-_Live Example: https://create-react-app.now-examples.now.sh/_
+# Adding environment variables
 
-### How We Created This Example
-
-To get started with React, along with [Serverless Functions](https://vercel.com/docs/v2/serverless-functions/introduction), with Vercel, you can use the [Create-React-App CLI](https://reactjs.org/docs/create-a-new-react-app.html#create-react-app) to initialize the project:
-
-```shell
-$ npx create-react-app my-app
-```
+Head to your project's settings on Vercel, go to "Environment Variables" and add `LASTFM_API_KEY` with your last.fm API key.
