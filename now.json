@@ -1,0 +1,5 @@
+{
+  "env": {
+    "LASTFM_API_KEY": "@lastfm_api_key"
+  }
+}

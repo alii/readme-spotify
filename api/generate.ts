@@ -4,10 +4,9 @@ import fetch from "node-fetch";
 
 const { LASTFM_API_KEY } = process.env;
 
-const generate = async (username: string) => {
-  const request = await fetch(
-    `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${LASTFM_API_KEY}&format=json&limit=1`
-  );
+const generate = async (username: string, darkTheme: boolean = false) => {
+  const endpoint = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${LASTFM_API_KEY}&format=json&limit=1`;
+  const request = await fetch(endpoint);
 
   const body = (await request.json()) as APIResponse;
   const tracks = body.recenttracks.track;
@@ -19,14 +18,15 @@ const generate = async (username: string) => {
 };
 
 export default async (req: NowRequest, res: NowResponse): Promise<void> => {
-  const img = Buffer.from(
-    await generate(req.query.username as string),
-    "base64"
+  const body = await generate(
+    req.query.username as string,
+    req.query.dark === "true"
   );
+  const img = Buffer.from(body.split(",")[1], "base64");
 
   res.writeHead(200, {
     "Content-Type": "image/png",
-    "Content-Length": img.length,
+    "Content-Length": img.length
   });
 
   res.end(img);
