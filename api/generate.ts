@@ -4,8 +4,6 @@ import fetch from "node-fetch";
 
 const { LASTFM_API_KEY } = process.env;
 
-console.log(LASTFM_API_KEY);
-
 const generate = async (username: string, darkTheme: boolean = false) => {
   const endpoint = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${LASTFM_API_KEY}&format=json&limit=1`;
   const request = await fetch(endpoint);
@@ -14,22 +12,28 @@ const generate = async (username: string, darkTheme: boolean = false) => {
   const tracks = body.recenttracks.track;
   const lastTrack = tracks[0];
 
-  return tti.generate(
-    `Last listening to ${lastTrack.name} by ${lastTrack.artist["#text"]}`,
-    { fontFamily: "Arial" }
-  );
+  const content = `Last listening to ${lastTrack.name} by ${lastTrack.artist["#text"]}`;
+
+  return {
+    image: tti.generate(content, {
+      fontFamily: "sans-serif"
+    }),
+    content
+  };
 };
 
 export default async (req: NowRequest, res: NowResponse): Promise<void> => {
-  const body = await generate(
+  const { image: body, content } = await generate(
     req.query.username as string,
     req.query.dark === "true"
   );
+
   const img = Buffer.from(body.split(",")[1], "base64");
 
   res.writeHead(200, {
     "Content-Type": "image/png",
-    "Content-Length": img.length
+    "Content-Length": img.length,
+    "X-Song": content
   });
 
   res.end(img);
